@@ -16,7 +16,7 @@ import 'dotenv/config';
   });
   console.log(task);
 
-  var availability = await c.getAvailability(user);
+  var availability = await c.getAvailability(user, 'es');
   console.log(availability);
   console.log(await c.getLeaderboard());
   /*

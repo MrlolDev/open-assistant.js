@@ -16,9 +16,9 @@ export default class Client {
   public async getTask(options: TaskOptions) {
     return await this.baseRequest(`/tasks/`, { 'Content-type': 'application/json' }, { body: JSON.stringify(options) });
   }
-  public async getAvailability(options: User) {
+  public async getAvailability(options: User, lang: string) {
     return await this.baseRequest(
-      `/tasks/availability`,
+      `/tasks/availability?lang=${lang}`,
       { 'Content-type': 'application/json' },
       { body: JSON.stringify(options) },
     );
