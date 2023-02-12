@@ -14,4 +14,6 @@ yarn add open-assistant.js
 
 ## Basic Usage
 
+You can check the [auto generated docs](/docs/classes/default.md) for more information.
+
 ## Examples
