@@ -1,5 +1,6 @@
 import TaskOptions from 'src/interfaces/TaskOptions.interface.js';
 import User from 'src/interfaces/User.interface.js';
+import { randomUUID } from 'node:crypto';
 
 export default class Client {
   private declare apiKey: string;
@@ -26,6 +27,15 @@ export default class Client {
       { 'Content-type': 'application/json', 'X-OASST-USER': `${user.auth_method}:${user.id}` },
       { body: JSON.stringify({ reason: reason }) },
     );
+  }
+  public async acceptTask(taskId: string, user: User, messageId?: string) {
+    if (!messageId) messageId = randomUUID();
+    await this.baseRequest(
+      `/tasks/${taskId}/ack`,
+      { 'Content-type': 'application/json', 'X-OASST-USER': `${user.auth_method}:${user.id}` },
+      { body: JSON.stringify({ message_id: messageId }) },
+    );
+    return messageId;
   }
 
   private async baseRequest(url: string, headers?, options?, method: 'get' | 'post' = 'post') {

@@ -21,7 +21,7 @@ import 'dotenv/config';
   });
   console.log(availability);*/
   console.log(
-    await c.rejectTask(task.id, '', {
+    await c.acceptTask(task.id, {
       id: '530102778408861706',
       display_name: 'MrlolDev',
       auth_method: 'discord',
