@@ -18,8 +18,9 @@ import 'dotenv/config';
 
   var availability = await c.getAvailability(user);
   console.log(availability);
-
+  console.log(await c.getLeaderboard());
+  /*
   var messageId = await c.acceptTask(task.id, user);
   var solveTask = await c.solveTask(task, user, 'es', { text: 'cuál es la capital de españa?' }, messageId);
-  console.log(solveTask);
+  console.log(solveTask);*/
 })();

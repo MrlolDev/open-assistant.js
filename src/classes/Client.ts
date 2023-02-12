@@ -66,6 +66,15 @@ export default class Client {
     );
   }
 
+  public async getLeaderboard(timeFrame: 'day' | 'week' | 'month' | 'total' = 'day', maxCount: number = 100) {
+    return await this.baseRequest(
+      `/leaderboards/${timeFrame}?max_count=${maxCount}`,
+      { 'Content-type': 'application/json' },
+      {},
+      'get',
+    );
+  }
+
   private formatTaskType(taskType: string) {
     if (taskType == 'initial_prompt' || 'assistant_reply' || 'prompter_reply') {
       return 'text_reply_to_message';
