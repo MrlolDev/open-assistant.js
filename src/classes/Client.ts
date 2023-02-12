@@ -2,6 +2,7 @@ import TaskOptions from 'src/interfaces/TaskOptions.interface.js';
 import User from 'src/interfaces/User.interface.js';
 import Task from 'src/interfaces/Task.interface.js';
 import { randomUUID } from 'node:crypto';
+import TaskContent from 'src/interfaces/TaskContent.interface.js';
 
 export default class Client {
   private declare apiKey: string;
@@ -43,7 +44,7 @@ export default class Client {
     task: Task,
     user: User,
     lang: string,
-    text: string,
+    content: TaskContent,
     messageId: string,
     userMessageId?: string,
   ) {
@@ -59,15 +60,17 @@ export default class Client {
           message_id: messageId,
           user_message_id: userMessageId,
           lang: lang,
-          text: text,
+          ...content,
         }),
       },
     );
   }
 
   private formatTaskType(taskType: string) {
-    if (taskType == 'initial_prompt') {
+    if (taskType == 'initial_prompt' || 'assistant_reply' || 'prompter_reply') {
       return 'text_reply_to_message';
+    } else {
+      return 'text_labels';
     }
   }
 

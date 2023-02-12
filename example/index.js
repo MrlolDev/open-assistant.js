@@ -15,15 +15,11 @@ import 'dotenv/config';
     lang: 'es',
   });
   console.log(task);
-  /*
-  var availability = await c.getAvailability({
-    id: '530102778408861706',
-    display_name: 'MrlolDev',
-    auth_method: 'discord',
-  });
-  console.log(availability);*/
+
+  var availability = await c.getAvailability(user);
+  console.log(availability);
 
   var messageId = await c.acceptTask(task.id, user);
-  var solveTask = await c.solveTask(task, user, 'es', 'cuál es la capital de ecuador?', messageId);
+  var solveTask = await c.solveTask(task, user, 'es', { text: 'cuál es la capital de españa?' }, messageId);
   console.log(solveTask);
 })();
