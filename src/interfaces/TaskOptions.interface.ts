@@ -1,3 +1,5 @@
+import User from './User.interface.js';
+
 export default interface TaskOptions {
   type:
     | 'random'
@@ -8,11 +10,7 @@ export default interface TaskOptions {
     | 'label_prompter_reply'
     | 'assistant_reply'
     | 'prompter_reply';
-  user: {
-    id: string;
-    display_name: string;
-    auth_method: 'discord' | 'local';
-  };
+  user: User;
   collective: boolean;
   lang: string;
 }

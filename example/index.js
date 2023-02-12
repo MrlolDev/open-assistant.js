@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 (async () => {
   var c = new OpenAssistant(process.env.APIKEY, process.env.APIURL);
-  var task = await c.getTask({
+  /*var task = await c.getTask({
     type: 'random',
     user: {
       id: '530102778408861706',
@@ -13,5 +13,11 @@ import 'dotenv/config';
     collective: false,
     lang: 'es',
   });
-  console.log(task);
+  console.log(task);*/
+  var availability = await c.getAvailability({
+    id: '530102778408861706',
+    display_name: 'MrlolDev',
+    auth_method: 'discord',
+  });
+  console.log(availability);
 })();
