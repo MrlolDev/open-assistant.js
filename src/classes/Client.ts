@@ -1,5 +1,6 @@
 import TaskOptions from 'src/interfaces/TaskOptions.interface.js';
 import User from 'src/interfaces/User.interface.js';
+import Task from 'src/interfaces/Task.interface.js';
 import { randomUUID } from 'node:crypto';
 
 export default class Client {
@@ -36,6 +37,38 @@ export default class Client {
       { body: JSON.stringify({ message_id: messageId }) },
     );
     return messageId;
+  }
+
+  public async solveTask(
+    task: Task,
+    user: User,
+    lang: string,
+    text: string,
+    messageId: string,
+    userMessageId?: string,
+  ) {
+    if (!userMessageId) userMessageId = randomUUID();
+    return await this.baseRequest(
+      `/tasks/interaction`,
+      { 'Content-type': 'application/json' },
+      {
+        body: JSON.stringify({
+          type: this.formatTaskType(task.type),
+          taskId: task.id,
+          user: user,
+          message_id: messageId,
+          user_message_id: userMessageId,
+          lang: lang,
+          text: text,
+        }),
+      },
+    );
+  }
+
+  private formatTaskType(taskType: string) {
+    if (taskType == 'initial_prompt') {
+      return 'text_reply_to_message';
+    }
   }
 
   private async baseRequest(url: string, headers?, options?, method: 'get' | 'post' = 'post') {
