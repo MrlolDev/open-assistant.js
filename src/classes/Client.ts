@@ -1,8 +1,8 @@
-import TaskOptions from 'src/interfaces/TaskOptions.interface.js';
-import User from 'src/interfaces/User.interface.js';
-import Task from 'src/interfaces/Task.interface.js';
+import TaskOptions from '../interfaces/TaskOptions.interface.js';
+import User from '../interfaces/User.interface.js';
+import Task from '../interfaces/Task.interface.js';
 import { randomUUID } from 'node:crypto';
-import TaskContent from 'src/interfaces/TaskContent.interface.js';
+import TaskContent from '../interfaces/TaskContent.interface.js';
 
 export default class Client {
   private declare apiKey: string;
