@@ -20,21 +20,31 @@ export default class Client {
       { body: JSON.stringify(options) },
     );
   }
+  public async rejectTask(taskId: string, reason: string, user: User) {
+    return await this.baseRequest(
+      `/tasks/${taskId}/nack`,
+      { 'Content-type': 'application/json', 'X-OASST-USER': `${user.auth_method}:${user.id}` },
+      { body: JSON.stringify({ reason: reason }) },
+    );
+  }
 
-  private async baseRequest(url: string, headers?, options?) {
+  private async baseRequest(url: string, headers?, options?, method: 'get' | 'post' = 'post') {
     try {
       var res = await fetch(`${this.apiUrl}/v1${url}`, {
-        method: 'post',
+        method: method,
         headers: {
           'X-API-Key': this.apiKey,
           ...headers,
         },
         ...options,
       });
-      var json = await res.json();
-      return json;
+      if (res.body) {
+        var json = await res.json();
+        return json;
+      }
+      return true;
     } catch (err) {
-      throw new Error(err.detail);
+      throw new Error(err);
     }
   }
 }
