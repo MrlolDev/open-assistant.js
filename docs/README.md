@@ -1,3 +1,5 @@
+open-assistant.js / [Exports](modules.md)
+
 # open-assistant.js
 
 <a href="https://www.npmjs.com/package/open-assistant.js" target="_blank"><img src="https://img.shields.io/npm/v/open-assistant.js.svg?style=for-the-badge" alt="npm version" /></a>
