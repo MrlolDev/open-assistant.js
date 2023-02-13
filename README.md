@@ -16,4 +16,5 @@ yarn add open-assistant.js
 
 You can check the [auto generated docs](/docs/classes/default.md) for more information.
 
-## Examples
+## To do
+
