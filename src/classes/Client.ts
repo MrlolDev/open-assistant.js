@@ -51,19 +51,20 @@ export default class Client {
     if (!userMessageId) userMessageId = randomUUID();
     var url = `/tasks/interaction`;
     if (this.formatTaskType(task.type) == 'text_labels') url = `/text_labels`;
+    var obj = {
+      type: this.formatTaskType(task.type),
+      taskId: task.id,
+      user: user,
+      message_id: messageId,
+      lang: lang,
+      ...content,
+    };
+    if (this.formatTaskType(task.type) != 'text_labels') obj['user_message_id'] = userMessageId;
     return await this.baseRequest(
       url,
       { 'Content-type': 'application/json' },
       {
-        body: JSON.stringify({
-          type: this.formatTaskType(task.type),
-          taskId: task.id,
-          user: user,
-          message_id: messageId,
-          user_message_id: userMessageId,
-          lang: lang,
-          ...content,
-        }),
+        body: JSON.stringify(obj),
       },
     );
   }
