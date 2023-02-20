@@ -50,16 +50,18 @@ export default class Client {
   ) {
     if (!userMessageId) userMessageId = randomUUID();
     var url = `/tasks/interaction`;
-    if (this.formatTaskType(task.type) == 'text_labels') url = `/text_labels`;
+    if (this.formatTaskType(task.type) == 'text_labels') url = `/text_labels/`;
     var obj = {
       type: this.formatTaskType(task.type),
-      taskId: task.id,
       user: user,
       message_id: messageId,
-      lang: lang,
+      task_id: task.id,
       ...content,
     };
-    if (this.formatTaskType(task.type) != 'text_labels') obj['user_message_id'] = userMessageId;
+    if (this.formatTaskType(task.type) != 'text_labels') {
+      obj['user_message_id'] = userMessageId;
+      obj['lang'] = lang;
+    }
     return await this.baseRequest(
       url,
       { 'Content-type': 'application/json' },
@@ -79,7 +81,7 @@ export default class Client {
   }
 
   private formatTaskType(taskType: string) {
-    if (taskType == 'initial_prompt' || 'assistant_reply' || 'prompter_reply') {
+    if (taskType == 'initial_prompt' || taskType == 'assistant_reply' || taskType == 'prompter_reply') {
       return 'text_reply_to_message';
     } else {
       return 'text_labels';
