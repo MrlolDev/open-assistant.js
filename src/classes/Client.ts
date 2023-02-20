@@ -49,12 +49,8 @@ export default class Client {
     userMessageId?: string,
   ) {
     if (!userMessageId) userMessageId = randomUUID();
-    var url = `/tasks/interaction`;
-    if (this.formatTaskType(task.type) == 'text_labels') {
-      url = `/text_labels`;
-    }
     return await this.baseRequest(
-      url,
+      `/tasks/interaction`,
       { 'Content-type': 'application/json' },
       {
         body: JSON.stringify({
